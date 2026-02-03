@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<div class="container mt-5 text-center">
+    <!-- Título principal da página -->
+    <h2>🐟 Bem-vindo!</h2>
+
+    <!-- Texto explicativo -->
+    <p>Digite um CPF para continuar:</p>
+
+    <!-- Formulário que envia o CPF para a view 'index' usando método POST -->
+    <form method="post" action="{% url 'index' %}" class="d-flex justify-content-center mt-3">
+        {% csrf_token %}
+
+        <!-- Container que mantém o input e botão lado a lado -->
+        <div style="position: relative; display: flex; align-items: center;">
+
+            <!-- Campo onde o usuário digita o CPF -->
+            <input
+                type="text"
+                name="cpf"
+                class="form-control"
+                placeholder="000.000.000-00"
+                style="max-width: 250px; margin-right: 10px;"
+                required
+            >
+
+            <!-- Botão para enviar o formulário -->
+            <button type="submit" class="btn btn-fish">Entrar</button>
+
+            <!-- Área onde aparece a mensagem de CPF inválido caso a view defina cpf_invalido -->
+            {% if cpf_invalido %}
+                <div class="text-danger small" style="position: absolute; top: 100%; left: 0; margin-top: 5px;">
+                    CPF inválido!
+                </div>
+            {% endif %}
+        </div>
+    </form>
+</div>
+
+<!-- Script que aplica a máscara de CPF ao campo (usando jQuery Mask) -->
+<script>
+    $(document).ready(function(){
+        $('input[name="cpf"]').mask('000.000.000-00');
+    });
+</script>
+
+{% endblock %}

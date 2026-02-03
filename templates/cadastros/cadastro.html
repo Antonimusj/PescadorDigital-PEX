@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+<!-- Carrega os filtros do Crispy Forms para renderizar o formulário com estilos Bootstrap -->
+
+{% block conteudo %}
+
+<div class="container mt-4">
+    <!-- Título da página -->
+    <h2 class="mb-3">🐟 Cadastro de Pescadores</h2>
+    <hr>
+
+    <!-- Card que envolve o formulário -->
+    <div class="card card-custom shadow p-4">
+
+        <!-- Formulário de cadastro, enviado via POST para a URL 'cadPescadores' -->
+        <form method="post" action="{% url 'cadPescadores' %}">
+            {% csrf_token %}
+
+            <!-- Renderização automática do formulário usando Crispy Forms -->
+            {{ form|crispy }}
+
+            <!-- Botão para enviar o formulário -->
+            <button type="submit" class="btn btn-fish mt-3">Cadastrar</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

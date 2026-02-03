@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+<!-- Carrega os recursos do Crispy Forms, usado para estilizar o formulário. -->
+
+{% block titulo %}
+    <title>Editar Pescador</title>
+    <!-- Define o título da aba do navegador. -->
+{% endblock %}
+
+{% block conteudo %}
+<!-- Início do conteúdo principal da página -->
+<h2>Editar Pescador</h2>
+<hr>
+
+<form method="post">
+    {% csrf_token %}
+    <!-- Campo de segurança obrigatório do Django para formulários POST -->
+
+    {{ form | crispy }}
+    <!-- Renderiza o formulário do Django usando Crispy Forms -->
+
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <!-- Botão que envia o formulário e salva as mudanças -->
+
+    <a href="{% url 'listaPescadores' %}" class="btn btn-secondary">Cancelar</a>
+    <!-- Botão que retorna para a lista sem salvar -->
+</form>
+
+{% endblock %}

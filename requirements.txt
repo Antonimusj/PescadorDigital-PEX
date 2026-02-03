@@ -1,0 +1,5 @@
+django>=5.0
+mysql-connector-python
+django-crispy-forms
+crispy-bootstrap5
+django-cleanup

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+<!-- Carrega tags do Crispy Forms (não usadas aqui, mas não atrapalha) -->
+
+{% block titulo %}
+    <title>Deletar Pescador</title>
+    <!-- Define o título da página no navegador -->
+{% endblock %}
+
+{% block conteudo %}
+<!-- Conteúdo principal da página -->
+
+<h2>Deletar Pescador</h2>
+<hr>
+
+<!-- Exibe o nome do pescador que será deletado -->
+<p>Tem certeza que deseja deletar o pescador <strong>{{ object.nome }}</strong>?</p>
+
+<!-- Formulário de confirmação (POST)-->
+<form method="post">
+    {% csrf_token %}
+    <!-- Botão que confirma a exclusão -->
+    <button type="submit" class="btn btn-danger">Deletar</button>
+    <!-- Botão que cancela e volta para a lista -->
+    <a href="{% url 'listaPescadores' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+
+{% endblock %}
