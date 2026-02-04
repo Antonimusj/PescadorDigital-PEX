@@ -50,6 +50,8 @@ source .venv/bin/activate  # No Windows: .venv\\Scripts\\activate
 
 
 pip install -r requirements.txt
+
+
 Configure o Banco:
 
 Se desejar usar MySQL, certifique-se de que o serviço está rodando e use o script criar_banco.py.
@@ -108,6 +110,7 @@ Para discussões sobre Engenharia de Dados, parcerias em projetos de Sports Anal
 
 
 ---
+
 
 
 
