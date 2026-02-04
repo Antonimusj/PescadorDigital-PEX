@@ -88,27 +88,16 @@ José Antônio da Silva Estudante de Ciência de Dados (3º Semestre) na Faculda
 
 
 
-
-
-
-
 ---
 
-
-
-\### 🤝 Conecte-se comigo
-
+### 🤝 Conecte-se comigo
 Para discussões sobre Engenharia de Dados, parcerias em projetos de Sports Analytics ou oportunidades profissionais:
 
-
-
-\[!\[LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge\&logo=linkedin\&logoColor=white)](https://www.linkedin.com/in/jose-antonio-da-silva-ds)
-
-\[!\[Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge\&logo=Kaggle\&logoColor=white)](https://www.kaggle.com/antonimusarch)
-
-
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jose-antonio-da-silva-ds)
+[![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=Kaggle&logoColor=white)](https://www.kaggle.com/antonimusarch)
 
 ---
+
 
 
 
