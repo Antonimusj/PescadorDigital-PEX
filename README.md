@@ -37,19 +37,11 @@ UX & Automação: Notificações auto-dismiss (fecham sozinhas) e um Lançador S
 
 Prepare o ambiente:
 
-Bash
-
-
-
+```bash
 python -m venv .venv
-
-
-
-source .venv/bin/activate  # No Windows: .venv\\Scripts\\activate
-
-
-
+.venv\Scripts\activate
 pip install -r requirements.txt
+```
 
 
 Configure o Banco:
@@ -117,6 +109,7 @@ Para discussões sobre Engenharia de Dados, parcerias em projetos de Sports Anal
 
 
 ---
+
 
 
 
