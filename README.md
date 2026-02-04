@@ -34,11 +34,21 @@ Triagem Inteligente: A tela inicial valida o CPF em tempo real. Se o pescador j�
 UX & Automação: Notificações auto-dismiss (fecham sozinhas) e um Lançador Silencioso (.vbs/.bat) que oculta o terminal e inicia o sistema como um aplicativo nativo.
 
 ⚙️ Como Rodar o Projeto
+
 Prepare o ambiente:
 
 Bash
+
+
+
 python -m venv .venv
-source .venv/bin/activate  # No Windows: .venv\Scripts\activate
+
+
+
+source .venv/bin/activate  # No Windows: .venv\\Scripts\\activate
+
+
+
 pip install -r requirements.txt
 Configure o Banco:
 
@@ -98,6 +108,7 @@ Para discussões sobre Engenharia de Dados, parcerias em projetos de Sports Anal
 
 
 ---
+
 
 
 
