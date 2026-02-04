@@ -63,9 +63,16 @@ Inicie o Sistema:
 Basta clicar no arquivo abrir_sistema.vbs para rodar o servidor em segundo plano e abrir o navegador automaticamente.
 
 
+
+
+
+
 📄 Licença
 
 Projeto desenvolvido para fins educacionais e de extensão acadêmica.
+
+
+
 
 
 
@@ -110,6 +117,7 @@ Para discussões sobre Engenharia de Dados, parcerias em projetos de Sports Anal
 
 
 ---
+
 
 
 
