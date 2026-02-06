@@ -1,34 +1,28 @@
 {% extends 'base.html' %}
-<!-- Herda o layout base com navbar, estilos e mensagens -->
 
-{% block titulo %}
-<title>Lista de Pescadores</title>
-<!-- Define o título da aba -->
-{% endblock %}
+{% block titulo %}Lista de Pescadores{% endblock %}
 
 {% block conteudo %}
-<!-- Início do conteúdo da página -->
-
-<h2 class="mb-3">📋 Pescadores Cadastrados</h2>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">📋 Pescadores Cadastrados</h2>
+    <span class="badge bg-secondary p-2">
+        Total: {{ paginator.count }}
+    </span>
+</div>
 <hr>
 
-<!-- Formulário de busca por CPF ou nome (GET = mantém na URL) -->
 <form method="get" class="row g-2 mb-4">
     <div class="col-md-4">
         <input type="text" name="q" class="form-control" placeholder="Buscar..." value="{{ request.GET.q }}">
-        <!-- O value mantém o texto digitado após buscar -->
-    </div>
+        </div>
     <div class="col-auto">
         <button class="btn btn-fish" type="submit">Buscar</button>
     </div>
 </form>
 
-<!-- Card que envolve a tabela -->
 <div class="card shadow card-table p-3">
     <div class="table-responsive">
-        <!-- Torna a tabela rolável em telas pequenas -->
         <table class="table table-hover align-middle">
-            <!-- align-middle alinha verticalmente -->
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -37,27 +31,22 @@
                     <th>CPF</th>
                     <th>Data Cadastro</th>
                     <th class="text-center">Ações</th>
-                    <!-- Coluna para editar e deletar -->
-                </tr>
+                    </tr>
             </thead>
             <tbody>
                 {% for pescador in pescadores %}
-                <!-- Loop para cada item retornado pelo ListView -->
                 <tr>
                     <td>{{ pescador.nome }}</td>
                     <td>{{ pescador.email }}</td>
                     <td>{{ pescador.celular }}</td>
                     <td>{{ pescador.cpf }}</td>
                     <td>{{ pescador.data_cadastro|date:"d/m/Y" }}</td>
-                    <!-- Converte formato da data -->
                     <td class="text-center">
-                        <!-- Ações -->
                         <a href="{% url 'editarPescador' pescador.id %}" class="btn btn-warning btn-sm">Editar</a>
                         <a href="{% url 'deletarPescador' pescador.id %}" class="btn btn-danger btn-sm">Deletar</a>
                     </td>
                 </tr>
                 {% empty %}
-                <!-- Caso nenhuma busca retorne resultados -->
                 <tr>
                     <td colspan="6" class="text-center">Nenhum pescador encontrado.</td>
                 </tr>
@@ -67,10 +56,8 @@
     </div>
 </div>
 
-<!-- Paginação -->
 <nav class="mt-4">
   <ul class="pagination justify-content-center">
-    <!-- Botão anterior -->
     {% if pescadores.has_previous %}
       <li class="page-item">
         <a class="page-link" href="?q={{ request.GET.q }}&page={{ pescadores.previous_page_number }}">
@@ -79,7 +66,6 @@
       </li>
     {% endif %}
 
-    <!-- Números das páginas -->
     {% for num in pescadores.paginator.page_range %}
       <li class="page-item {% if pescadores.number == num %}active{% endif %}">
         <a class="page-link" href="?q={{ request.GET.q }}&page={{ num }}">
@@ -88,7 +74,6 @@
       </li>
     {% endfor %}
 
-    <!-- Próxima -->
     {% if pescadores.has_next %}
       <li class="page-item">
         <a class="page-link" href="?q={{ request.GET.q }}&page={{ pescadores.next_page_number }}">

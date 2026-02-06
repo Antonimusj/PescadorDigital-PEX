@@ -8,48 +8,59 @@ def sincronizar():
     if not os.path.exists(sqlite_path):
         return
 
-    try:
-        # Conexão MySQL
-        mysql_db = mysql.connector.connect(
-            host="localhost", user="root", password="1234", database="pescadores"
-        )
-        cursor_mysql = mysql_db.cursor()
+    sqlite_db = None
+    mysql_db = None
 
-        # Conexão SQLite
+    try:
+        # 1. Conexão SQLite (apenas leitura dos dados)
         sqlite_db = sqlite3.connect(sqlite_path)
         cursor_sqlite = sqlite_db.cursor()
 
-        # Pega os dados do SQLite
-        # Nota: O Django costuma nomear a tabela como 'cadastros_pescadores'
         cursor_sqlite.execute(
-            "SELECT nome, cpf, email, celular, data_cadastro, situacao_defeso FROM cadastros_pescadores")
+            "SELECT nome, cpf, email, celular, data_cadastro, situacao_defeso FROM cadastros_pescadores"
+        )
         rows = cursor_sqlite.fetchall()
 
-        if rows:
-            print(f"🔄 Movendo {len(rows)} registros para o MySQL...")
-            sql = """INSERT \
-            IGNORE INTO cadastros_pescadores 
-                     (nome, cpf, email, celular, data_cadastro, situacao_defeso) 
-                     VALUES ( \
-            %s, \
-            %s, \
-            %s, \
-            %s, \
-            %s, \
-            %s \
-            )"""
-            cursor_mysql.executemany(sql, rows)
-            mysql_db.commit()
+        if not rows:
+            print("ℹ️ SQLite sem registros para processar.")
+            return
 
-            # Limpa o SQLite para evitar duplicatas no futuro
-            cursor_sqlite.execute("DELETE FROM cadastros_pescadores")
-            sqlite_db.commit()
-            print("✅ Dados sincronizados com sucesso!")
+        # 2. Tentativa de conexão com MySQL
+        try:
+            mysql_db = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="1234",
+                database="pescadores",
+                connect_timeout=5
+            )
+            cursor_mysql = mysql_db.cursor()
+        except mysql.connector.Error:
+            print("⚠️ MySQL offline. Os dados continuam seguros no SQLite.")
+            return
 
-        sqlite_db.close()
-        mysql_db.close()
+        # 3. Sincronização usando INSERT IGNORE
+        # O 'IGNORE' faz com que, se o CPF já existir no MySQL, ele pule para o próximo sem dar erro
+        print(f"🔄 Verificando sincronia de {len(rows)} registros...")
+
+        sql = """INSERT IGNORE INTO cadastros_pescadores 
+                 (nome, cpf, email, celular, data_cadastro, situacao_defeso) 
+                 VALUES (%s, %s, %s, %s, %s, %s)"""
+
+        cursor_mysql.executemany(sql, rows)
+        mysql_db.commit()
+
+        print(f"✅ Processo concluído. Registros novos foram salvos e duplicados foram ignorados.")
+        print("📌 Nota: O banco SQLite permaneceu intacto.")
+
     except Exception as e:
-        print(f"ℹ️ MySQL offline ou sem dados novos para sincronizar.")
+        print(f"❌ Erro inesperado: {e}")
+
+    finally:
+        if sqlite_db:
+            sqlite_db.close()
+        if mysql_db:
+            mysql_db.close()
 
 
 if __name__ == "__main__":
